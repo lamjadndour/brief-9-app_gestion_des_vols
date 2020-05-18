@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Airways Deal</title>
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
 
@@ -62,8 +64,50 @@
 
 <center>
 <h2>Available flights</h2>
-<h5>Bootstrap heading Bootstrap heading</h5>
+<h5>The best Deals to get a confortable fly </h5>
 </center>
+
+
+<?php 
+  $db = mysqli_connect("localhost","root","","db_gestionVols");
+  if (isset($_POST['submit'])){
+    $depart = $_POST['depart'];
+    $destination = $_POST['destination'];
+    $query = mysqli_query($db, "SELECT * FROM Vols WHERE depart = '$depart' AND destination = '$destination' AND place_disponible > 0 "); 
+
+    if (mysqli_num_rows($query) > 0 ) {
+      $toWrite = '<div class="row row-cols-3 ">';
+      while ($row = mysqli_fetch_array($query)){
+        $id = $row['idVol'];
+        $depart = $row['depart'];
+        $destination = $row['destination'];
+        $date = $row['date_depart'];
+        $time = $row['time'];
+        $prix = $row['prix'];
+        $nbrPlace = $row['place_disponible'];
+
+        $toWrite .= '<div class="card" style="width: 10rem;">';
+        $toWrite .= '<h5 class=""card-header""> ' . $depart .'  <i class="fas fa-plane-departure"></i>   --->   <i class="fas fa-plane-arrival"></i> ' . $destination . '</h5>';
+        $toWrite .= '<ul class="list-group list-group-flush">';
+        $toWrite .= '<li class="list-group-item"> <i class="fas fa-calendar-day"></i> '. $date .'</li>';
+        $toWrite .= '<li class="list-group-item"> <i class="fas fa-clock"></i> '. $time .'</li>';
+        $toWrite .= '<li class="list-group-item"> <i class="fas fa-chair"></i> '. $nbrPlace .'</li> ';
+        $toWrite .= '<li class="list-group-item"> <i class="fas fa-hand-holding-usd"></i> '. $prix .'</li> </ul>';
+        $toWrite .= '<li class="list-group-item text-right"> <a class="btn btn-primary" href="reservation.php?id=' . $id .'">Reserver</a> </li> </ul> </div>';
+      }
+      $toWrite .= '</div>';
+      echo $toWrite;
+    }
+    else{ 
+      echo "<script> alert('Aucun resulta')</script>"; }
+    }
+?>
+    
+    
+
+
+
+<!-- //////////////////////////////////////////////////::
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -78,43 +122,10 @@
     </tr>
   </thead>
                 
-    <?php 
-            $db = mysqli_connect("localhost","root","","db_gestionVols");
-            if (isset($_POST['submit'])){
-                $depart = $_POST['depart'];
-                $destination = $_POST['destination'];
-                $query = mysqli_query($db, "SELECT * FROM Vols WHERE depart = '$depart' AND destination = '$destination' AND place_disponible > 0 "); 
-      
-                if (mysqli_num_rows($query) > 0 ) {
-                while ($row = mysqli_fetch_array($query)){
-                    $id = $row['idVol'];
-                    $depart = $row['depart'];
-                    $destination = $row['destination'];
-                    $date = $row['date_depart'];
-                    $time = $row['time'];
-                    $prix = $row['prix'];
-                    $nbrPlace = $row['place_disponible'];
-    
-     ?>
-                <tbody>
-                    <tr class="table-active">
-                      
-                      <td><?php echo $depart; ?></td>
-                      <td><?php echo $destination;?></td>
-                      <td><?php echo $date; ?></td>
-                      <td><?php echo $time; ?></td>
-                      <td><?php echo $prix;?>DH</td>
-                      <td><?php echo $nbrPlace; ?></td>
-                      <td><button type="button" class="btn btn-warning">
-                      <a href="reservation.php?id=<?php echo $id; ?>">Reserver</a></button></td>  
-                    </tr>
-                  </tbody>
-   <?php } }
-     else { echo "<script> alert('Aucun resulta')</script>"; }
-   }
-   ?> 
+
    
      </table>
+      -->
 
 </body>
 </html>
