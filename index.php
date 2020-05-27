@@ -7,6 +7,7 @@
   
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -16,20 +17,11 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <img src="images/logo.png" alt="">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">About</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-      <a class="nav-item nav-link" href="#">Contat us</a>
-    </div>
-  </div>
-</nav>
+  <?php 
+    session_start();
+    include "navigation.php" ;
+    include "DB_connection.php"
+  ?>
 
 
 <div class="header">
@@ -69,14 +61,14 @@
 
 
 <?php 
-  $db = mysqli_connect("localhost","root","","db_gestionVols");
+  $db = mysqli_connect("localhost","root","","db_gestionvols");
   if (isset($_POST['submit'])){
     $depart = $_POST['depart'];
     $destination = $_POST['destination'];
     $query = mysqli_query($db, "SELECT * FROM Vols WHERE depart = '$depart' AND destination = '$destination' AND place_disponible > 0 "); 
 
     if (mysqli_num_rows($query) > 0 ) {
-      $toWrite = '<div class="row row-cols-3 ">';
+      $toWrite = '<div class="row row-cols-4  ">';
       while ($row = mysqli_fetch_array($query)){
         $id = $row['idVol'];
         $depart = $row['depart'];
@@ -86,8 +78,8 @@
         $prix = $row['prix'];
         $nbrPlace = $row['place_disponible'];
 
-        $toWrite .= '<div class="card" style="width: 10rem;">';
-        $toWrite .= '<h5 class=""card-header""> ' . $depart .'  <i class="fas fa-plane-departure"></i>   --->   <i class="fas fa-plane-arrival"></i> ' . $destination . '</h5>';
+        $toWrite .= '<div class="card mx-auto my-3" style="width: 5rem; min-width: 250px; max-width: 300px"" >';
+        $toWrite .= '<h5 class="card-header text-center"> ' . $depart .'  <i class="fas fa-plane-departure"></i>   --->   <i class="fas fa-plane-arrival"></i> ' . $destination . '</h5>';
         $toWrite .= '<ul class="list-group list-group-flush">';
         $toWrite .= '<li class="list-group-item"> <i class="fas fa-calendar-day"></i> '. $date .'</li>';
         $toWrite .= '<li class="list-group-item"> <i class="fas fa-clock"></i> '. $time .'</li>';
@@ -103,29 +95,5 @@
     }
 ?>
     
-    
-
-
-
-<!-- //////////////////////////////////////////////////::
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      
-      <th scope="col">Depart</th>
-      <th scope="col">Destianation</th>
-      <th scope="col">date de depart</th>
-      <th scope="col">Time</th>
-      <th scope="col">Price</th>
-      <th scope="col">nombre de Place</th>
-      <th scope="col">Reservation</th>
-    </tr>
-  </thead>
-                
-
-   
-     </table>
-      -->
-
 </body>
 </html>
