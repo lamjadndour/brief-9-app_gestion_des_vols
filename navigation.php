@@ -1,26 +1,26 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="min-height: 86px;">
   <img src="images/logo.png" alt="">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav" style="margin-left: 50%">
-      <a class="nav-item nav-link text-center active my-auto" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link text-center active my-auto" href="index.php">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link text-center my-auto" href="#">About</a>
       <?php
-        if (isset($_SESSION["username"])) {
+        if (isset($_SESSION["user"])) {
 
-            if($_SESSION["status"] == 1)
+            if($_SESSION['user']["grade"] == 1)
             {
                 ?>
-                <a class="nav-item nav-link my-auto  text-center" href="administration.php">Administration</a>
+                <a class="nav-item nav-link my-auto  text-center" href="vols_admin.php">Administration</a>
                 <?php 
             }else{
                 ?>
-                <a class="nav-item nav-link my-auto  text-center" href="userdashbord.php">Dashbord</a>
+                <a class="nav-item nav-link my-auto  text-center" href="userdashbord.php"><?php echo $_SESSION['user']['username'] . " Dashbord" ?></a>
                 <?php
             }
                 ?>
