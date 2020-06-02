@@ -24,7 +24,7 @@
     <!-- My Side Barre -->
     <div class="sideBarre">
         <div class="sideBarre__logo">
-            <img src="../images/logo.png" alt="">
+            <img src="images/logo.png" alt="">
         </div>
         <div class="sideBarre__menu">
             <ul>
