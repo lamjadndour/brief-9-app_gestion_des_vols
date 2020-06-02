@@ -2,8 +2,10 @@
 
 include "source/header.php";
 include "model/usermodel.php";
-
+include "model/vol_model.php";
 include "source/DB_connection.php";
+
+
 $query = mysqli_query($db, "SELECT * from vols");
 if (isset($_POST['add'])) {
 
@@ -14,35 +16,26 @@ if (isset($_POST['add'])) {
     $prix              = $_POST['prix'];
     $place_disponible  = $_POST['place'];
     $status            = $_POST['status'];
-
     $vols = new Vol();
-    $vols->vol_insert($depart, $destination, $date_depart, $time, $prix, $place_disponible, $status);
-
-    header("Location: vols.php");
+    $stat = $vols->vol_insert($depart, $destination, $date_depart, $time, $prix, $place_disponible, $status);
 }
-
+if ($_SESSION['user']['grade'] == 1) {
+    $grade = "Admin ";
+}
 ?>
 
 
 <!-- My Box Content -->
 
 <div class="session">
-    <?php echo "HELLO ADMIN" . ' ' . $_SESSION['user']['username']; ?>
+    <?php echo "HELLO" . ' ' . $grade . ' ' . $_SESSION['user']['username']; ?>
 </div>
 
 </nav>
 <div class="boxContent">
     <div class="firstRow">
-
-        <?php
-        //  if (isset($_GET['message'])) {
-        // 	 $message = $_GET['message'];
-        // 	 echo  "<div class='alert alert-success'>".$message."</div>";  
-        //  }
-        ?>
-
         <div class="addbtn">
-            <a onclick="getElementbyId('addvol')" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New vol</span></a>
+            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Admin</span></a>
         </div>
         <div class="row row-cols-1 row-cols-md-3">
             <?php while ($row = mysqli_fetch_array($query)) {  ?>
@@ -66,7 +59,7 @@ if (isset($_POST['add'])) {
         </div>
 
         <!-- Add Modal HTML -->
-        <div id="addvol" class="modal fade">
+        <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="">
@@ -77,11 +70,25 @@ if (isset($_POST['add'])) {
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>depart</label>
-                                <input type="text" class="form-control" name="depart" placeholder="Enter depart" required>
+                                <select name="depart" class="form-control" id="inputGroupSelect01">
+                                    <option selected>From...</option>
+                                    <option value="casablanca">casablanca</option>
+                                    <option value="fes">Fès</option>
+                                    <option value="safi">Safi</option>
+                                    <option value="dakhla">dakhla</option>
+                                    <option value="Salé">Salé</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Destination</label>
-                                <input type="text" class="form-control" name="destination" placeholder="Enter destination" required>
+                                <select name="destination" class="form-control" id="inputGroupSelect01">
+                                    <option selected>To...</option>
+                                    <option value="casablanca">Casablanca</option>
+                                    <option value="fes">Fès</option>
+                                    <option value="safi">safi</option>
+                                    <option value="dakhla">dakhla</option>
+                                    <option value="Salé">Salé</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Date depart</label>
@@ -119,6 +126,9 @@ if (isset($_POST['add'])) {
                 </div>
             </div>
         </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         </body>
 
         </html>

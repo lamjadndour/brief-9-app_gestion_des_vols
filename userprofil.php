@@ -1,3 +1,23 @@
+<?php
+
+@$id      = $_POST['id'];
+include "source/DB_connection.php";
+if (isset($_POST['submit'])) {
+    include "model/usermodel.php";
+
+
+    $username    =  $_POST['username'];
+    $email       =  $_POST['email'];
+    $password_1  =  $_POST['password'];
+    $password_2  =  $_POST['conf_password'];
+    $update_user = new User;
+    $update_user->user_update($id, $username, $email, $password_1, $password_2);
+} else {
+    session_start();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +39,7 @@
 
 
     <?php
-    session_start();
+
     include "source/navigation.php";
     include "source/DB_connection.php";
     $id = $_GET['id'];
@@ -100,6 +120,19 @@
                 }
             };
             xmlhttp.open("GET", "controller/userfunctions.php?r=" + str, true);
+            xmlhttp.send();
+        }
+
+        function showClient(str) {
+
+            document.getElementById("content").innerHTML = "";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("content").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "controller/userfunctions.php?c=" + str, true);
             xmlhttp.send();
         }
 

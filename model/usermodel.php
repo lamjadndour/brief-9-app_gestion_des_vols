@@ -112,10 +112,9 @@ class User
         // register user if there are no errors in the form
         if (count($errors) == 0) {
             $password = md5($password_1);
-            $user_type = 0;
+
             $query = "UPDATE users SET username = '$username', password = '$password', email = '$email' WHERE iduser = '$id'";
             $result = mysqli_query($db, $query);
-            echo "user is updated successfully";
         }
     }
 

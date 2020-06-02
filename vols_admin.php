@@ -2,9 +2,7 @@
 include "source/header.php";
 include "model/usermodel.php";
 include "model/vol_model.php";
-
 include "source/DB_connection.php";
-$query = mysqli_query($db, "SELECT * from vols");
 
 
 $id = $_GET['id'];
@@ -12,7 +10,6 @@ $query = mysqli_query($db, "SELECT * from vols where idVol='$id'");
 
 if ($row = mysqli_fetch_array($query)) {
 }
-
 if (isset($_POST['modifier'])) {
 	$id1               = $_POST['id1'];
 	$depart            = $_POST['depart'];
@@ -79,7 +76,6 @@ if (isset($_POST['modifier'])) {
 					<option value="Desactiver">Desactiver</option>
 
 				</select>
-				<!-- <input type="text" class="form-control" name="status" value="<?php echo $row['status']; ?>"> -->
 			</div>
 
 			<div class="form-group">

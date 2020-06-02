@@ -30,7 +30,7 @@
             <ul>
                 <li><a href="adminprofil.php">Vols disponible</a></li>
                 <li><a href="index.php">view website</a></li>
-                <li><a href="logout.php">logout</a></li>
+                <li><a href="controller/logout.php">logout</a></li>
 
             </ul>
         </div>

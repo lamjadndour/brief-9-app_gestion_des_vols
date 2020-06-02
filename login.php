@@ -2,10 +2,7 @@
 // connect to database
 include "source/DB_connection.php";
 include 'controller/logFunctions.php';
-if (isLoggedIn() == true) {
-	echo "You are alredy logged In ";
-	header("refresh:2; url=index.php");
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

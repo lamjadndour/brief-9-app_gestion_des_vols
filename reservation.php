@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $db = mysqli_connect("localhost", "root", "", "db_gestionVols");
 
 $idVol = $_GET['id'];
@@ -16,16 +18,18 @@ if (isset($_POST['reserver'])) {
   $cin = $_POST['cin'];
   $phone = $_POST['phone'];
 
-  $query1 = mysqli_query($db, "INSERT INTO client values('', '$nom', '$prenom', '$email', '$cin', '$phone')");
-
-  if ($query1) {
+  $query2 = mysqli_query($db, "INSERT INTO client values('', '$nom', '$prenom', '$email', '$cin', '$phone')");
+  $id_user = $_SESSION['user']['iduser'];
+  if ($query2 == true) {
     $last_id = mysqli_insert_id($db);
-    $query2 = mysqli_query($db, "INSERT INTO reservation values('', '$last_id', '$idVol', now()) ");
+    $query3 = mysqli_query($db, "INSERT INTO reservation values('', '$id_user','$last_id', '$idVol', now()) ");
   }
-  if ($query2) {
+
+  if ($query3 == true) {
     $reserv_id = mysqli_insert_id($db);
   }
-  $query3 = mysqli_query($db, " UPDATE vols SET place_disponible = place_disponible - 1 where idVol = '$idVol'  ");
+
+  $query4 = mysqli_query($db, " UPDATE vols SET place_disponible = place_disponible - 1 where idVol = '$idVol'  ");
 
 
   header("Location: confirmation.php?id=$reserv_id");
@@ -50,20 +54,7 @@ if (isset($_POST['reserver'])) {
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img src="images/logo.png" alt="">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">About</a>
-        <a class="nav-item nav-link" href="#">Pricing</a>
-        <a class="nav-item nav-link" href="#">Contat us</a>
-      </div>
-    </div>
-  </nav>
+  <?php include "source/navigation.php"; ?>
 
 
 

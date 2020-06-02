@@ -20,7 +20,7 @@
         <?php
         }
         ?>
-        <a class="nav-item btn btn-dark text-center " style="width : 120px" href="logout.php">Log-out</a>
+        <a class="nav-item btn btn-dark text-center " style="width : 120px" href="controller/logout.php">Log-out</a>
       <?php
       } else {
       ?>

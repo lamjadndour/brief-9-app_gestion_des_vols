@@ -6,6 +6,33 @@ include "../model/usermodel.php";
 
 global $db;
 
+// ::::::: GET CLIENT OF RESERVATION FROM DATABASE ::::::  \\
+
+
+if (@$idUser = intval($_GET['c'])) {
+    $sql = "SELECT * FROM client WHERE idClient = '" . $idUser . "'";
+    $client = mysqli_query($db, $sql);
+    $client_rows = mysqli_num_rows($client);
+    if ($client_rows > 0) {
+        echo '<table class="table">
+        <tr>
+        <th>Nom</th>
+        <th>Prennom</th>
+        <th>telephone</th>
+        <th>C.I.N</th>
+        </tr>';
+        while ($client_data =  mysqli_fetch_array($client)) {
+            echo "<tr>";
+            echo "<td>" . $client_data['Nom'] . "</td>";
+            echo "<td>" . $client_data['Prenom'] . "</td>";
+            echo "<td>" . $client_data['CIN'] . "</td>";
+            echo "<td>" . $client_data['tel'] . "</td>";
+            echo "</tr>";
+        }
+    } else {
+        echo '<h1 class="display-4"> No client found </h1>';
+    }
+}
 
 
 // ::::::: GET RESERVATION OF USER FROM DATABASE ::::::  \\
@@ -21,8 +48,10 @@ if (@$idUser = intval($_GET['r'])) {
         <th>Destination</th>
         <th>Date reservation</th>
         <th>Status</th>
+        <th>Info Client</th>
         </tr>';
         while ($reservation_data =  mysqli_fetch_array($reservation)) {
+            $idclient = $reservation_data['idClient'];
             $idvol = $reservation_data['idVol'];
             $date = $reservation_data['date_reseravtion'];
             $sqlvol = "SELECT * FROM vols WHERE idVol = '" . $idvol . "'";
@@ -35,16 +64,19 @@ if (@$idUser = intval($_GET['r'])) {
                     echo "<td>" . $vol_data['destination'] . "</td>";
                     echo "<td>" . $date . "</td>";
                     echo "<td>" . $vol_data['status'] . "</td>";
+                    echo "<td> <button class='btn btn-info' onclick='showClient(" . $idclient . ")'>Info</button> </td>";
                     echo "</tr>";
                 }
             }
         }
+    } else {
+        echo '<h1 class="display-4"> No Reservation found </h1>';
     }
 }
 
+
+
 // ::::::: GET USER_DATA OF USER FROM DATABASE ::::::  \\
-
-
 
 if (@$idUser = $_GET['u']) {
     $sqluser = "SELECT * FROM users WHERE iduser = ' $idUser '";
@@ -59,7 +91,7 @@ if (@$idUser = $_GET['u']) {
                 <div class="e-profile">
                     <div class="tab-content pt-3">
                         <div class="tab-pane active">
-                            <form class="form" action="controller/userfunctions.php" method="post" >
+                            <form class="form" action="" method="post" >
                                 <div class="row">
                                     <div class="col">
                                         <div class="row">
@@ -102,21 +134,4 @@ if (@$idUser = $_GET['u']) {
             </div>';
         }
     }
-}
-
-if (isset($_POST['submit'])) {
-
-    $id      = e($_POST['id']);
-    $username    =  e($_POST['username']);
-    $email       =  e($_POST['email']);
-    $password_1  =  e($_POST['password']);
-    $password_2  =  e($_POST['conf_password']);
-    $update_user = new User;
-    $update_user->user_update($id, $username, $email, $password_1, $password_2);
-}
-// escape string
-function e($val)
-{
-    global $db;
-    return mysqli_real_escape_string($db, trim($val));
 }
