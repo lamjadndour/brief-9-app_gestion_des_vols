@@ -1,0 +1,32 @@
+.card-body{
+    margin-bottom: 13px;
+}
+.card-body h5{
+    font-size: 15px;
+    font-family: monospace;
+    
+}
+
+.card-body span{
+    color: #ab8d39;
+  }
+
+.card-header{
+    color: #024c86;
+    font-size: 18px;
+    font-family: cursive;
+  }
+
+  .addbtn{
+      margin-bottom: 15px;
+  }
+
+   .btn i {
+    float: left;
+    font-size: 21px;
+    margin-right: 5px;
+}
+
+.badge {
+    float: right;
+}

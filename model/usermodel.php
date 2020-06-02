@@ -5,32 +5,6 @@ session_start();
 class User
 {
 
-    // function __construct()
-    // {
-    //     $this->conn = new mysqli("localhost", "root", "", "db_gestionvols");
-    // }
-
-    // function user_insert($username, $password,$email, $grade) {	
-
-    // 	$query= "SELECT * FROM users WHERE username=?";
-    // 	$stmt = $this->conn->prepare($query);
-    // 	$stmt->bind_param("s",$email);
-    // 	$stmt->execute();
-    // 	$result= $stmt->get_result();
-    // 	$row1 = mysqli_num_rows($result);
-
-    // 	if ($row1 == 1) {
-
-    // 		echo "user already taken";
-    // 	} else {
-
-    // 		$stmt =$this->conn->prepare("INSERT Into users (nom, prenom, email,password, statut) values(?,?,?,?,?)");
-    // 		$stmt->bind_param("sssss", $username, $password, $email, $grade);
-    // 		$stmt->execute();
-
-    // 		header("Location: ../view/login.php");
-    // 	}
-    // }
     // LOGIN USER
     public static function user_login($username, $password)
     {
@@ -43,7 +17,7 @@ class User
             $id = $data['iduser'];
             $_SESSION['user'] = $data;
             if ($_SESSION["user"]["grade"] == 1) {
-                header("Location: ../view/admin.php");
+                header("Location: adminprofil.php");
                 # code...
             } else {
                 # code...
@@ -87,21 +61,18 @@ class User
             if ($grade == "1337") {
                 $user_type = 1;
                 $query = "INSERT INTO users VALUES('','$username','$password', '$email', '$user_type')";
-                mysqli_query($db, $query);
-                $logged_in_user_id = mysqli_insert_id($db);
-                $_SESSION['user'] = getUserById($logged_in_user_id);
-                $_SESSION['grade'] = "admin";
+                $results = mysqli_query($db, $query);
+                $logged_in_user = mysqli_fetch_array($results);
+                $_SESSION['user'] = $logged_in_user;
+
                 $_SESSION['success']  = "New admin_user  successfully created!!";
-                $text = $_SESSION['user'];
-                echo $text;
-                header('location: administration.php');
+                header('location: adminprofil.php');
             } else {
                 $user_type = 0;
                 $query = "INSERT INTO users VALUES('','$username','$password', '$email', '$user_type')";
-                mysqli_query($db, $query);
-                $logged_in_user_id = mysqli_insert_id($db);
-                $_SESSION['user'] = getUserById($logged_in_user_id);
-                $_SESSION['grade'] = "user";
+                $results = mysqli_query($db, $query);
+                $logged_in_user = mysqli_fetch_array($db);
+                $_SESSION['user'] = $logged_in_user;
                 $_SESSION['success']  = "New user  successfully created!!";
                 header('location: index.php');
             }
