@@ -42,7 +42,7 @@ if (isset($_POST['add'])) {
         ?>
 
         <div class="addbtn">
-            <a href="#l" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New vol</span></a>
+            <a onclick="getElementbyId('addvol')" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New vol</span></a>
         </div>
         <div class="row row-cols-1 row-cols-md-3">
             <?php while ($row = mysqli_fetch_array($query)) {  ?>
@@ -66,7 +66,7 @@ if (isset($_POST['add'])) {
         </div>
 
         <!-- Add Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
+        <div id="addvol" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="post" action="">
