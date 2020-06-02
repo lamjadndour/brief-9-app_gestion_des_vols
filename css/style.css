@@ -103,10 +103,7 @@ a:hover{
   }
 }
 
-.table {
-  width: 85%;
-  margin-left: 91px;
-}
+
 
 h2{
    color: black;
@@ -119,4 +116,12 @@ margin-bottom: 68px;
 }
 
 
-
+.card-body-plus{
+  background-color: #1d2768;
+  width: 55%;
+  min-width: 365px;
+  margin: 10px auto;
+  border: 1px solid;
+  border-radius: 47px;
+  margin-bottom: 20px;
+}

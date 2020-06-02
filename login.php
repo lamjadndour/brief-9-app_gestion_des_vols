@@ -1,8 +1,10 @@
 <?php
-include ('logFunctions.php');
-if(isLoggedIn() == true){
-    echo "You are alredy logged In ";
-    header("refresh:2; url=index.php");
+// connect to database
+include "source/DB_connection.php";
+include 'controller/logFunctions.php';
+if (isLoggedIn() == true) {
+	echo "You are alredy logged In ";
+	header("refresh:2; url=index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -22,26 +24,25 @@ if(isLoggedIn() == true){
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
 			<form action="login.php" method="POST">
-                <?php echo display_error(); ?>
 				<h1>Create Account</h1>
 				<span>Please fill all input</span>
-				<input type="text" placeholder="Name" name="username" required=""/>
-				<input type="email" placeholder="Email" name="email" required=""/>
+				<input type="text" placeholder="Name" name="username" required="" />
+				<input type="email" placeholder="Email" name="email" required="" />
 				<input type="password" placeholder="Password" name="password" minlenght="8" required="" />
 				<input type="password" placeholder="Confirm your Password" name="c_password" minlenght="8" required="" />
-                <label> Only Admins</label>
-                <input type="text" placeholder="Admin_Code" name="grade"/>
+				<label> Only Admins</label>
+				<input type="text" placeholder="Admin_Code" name="grade" />
 				<button type="submit" name="register">Sign Up</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
 			<form action="login.php" method="POST">
 				<h1>Sign in</h1>
-				<?php echo display_error(); ?>
-				<input type="text" placeholder="Username" name="username" required=""/>
-				<input type="password" placeholder="Password" name="password" required=""/>
+				<input type="text" placeholder="Username" name="username" required="" />
+				<input type="password" placeholder="Password" name="password" required="" />
 				<a href="#">Forgot your password?</a>
 				<button type="submit" name="login">Sign In</button>
+				<?php display_error(); ?>
 			</form>
 		</div>
 		<div class="overlay-container">
@@ -74,7 +75,6 @@ if(isLoggedIn() == true){
 		signInButton.addEventListener('click', () => {
 			container.classList.remove("right-panel-active");
 		});
-
 	</script>
 </body>
 
