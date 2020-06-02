@@ -30,3 +30,13 @@ After Creating Database,
 ```
  9th Step: Open a browser and go to URL "http://localhost/ram/"
 ```
+To login as user:,
+```
+ username : user
+ password : user
+```
+To login as Admin:,
+```
+ username : hello
+ password : hello
+```
