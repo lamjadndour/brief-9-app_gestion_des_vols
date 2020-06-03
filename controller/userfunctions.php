@@ -79,9 +79,11 @@ if (@$idUser = intval($_GET['r'])) {
 // ::::::: GET USER_DATA OF USER FROM DATABASE ::::::  \\
 
 if (@$idUser = $_GET['u']) {
-    $sqluser = "SELECT * FROM users WHERE iduser = ' $idUser '";
-    $user = mysqli_query($db, $sqluser);
+    $user_m = new User;
+    $user = $user_m->user_show($idUser);
     $user_rows = mysqli_num_rows($user);
+
+
     if ($user_rows > 0) {
         while ($user_data =  mysqli_fetch_array($user)) {
             $userName = $user_data['username'];

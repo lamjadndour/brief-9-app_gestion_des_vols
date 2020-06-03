@@ -24,7 +24,7 @@ class User
                 header("Location: userprofil.php?id=$id");
             }
         } else {
-            array_push($errors, "user not fund");
+            array_push($errors, "Data insert is false");
         }
     }
     // REGISTER USER
@@ -78,13 +78,6 @@ class User
             }
         }
     }
-    // escape string
-    function e($val)
-    {
-        global $db;
-        return mysqli_real_escape_string($db, trim($val));
-    }
-
 
 
     // Update USER
@@ -120,17 +113,11 @@ class User
 
     function user_show($id)
     {
-
+        global $db;
         $query = "SELECT * from users where iduser='$id'";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $db->prepare($query);
         $stmt->execute();
-
-        // $result = $stmt->get_result();
-        // $row = $result->fetch_assoc();
-
-
         $result = $stmt->get_result();
-        // $row = $result->fetch_assoc();
         return  $result;
     }
 }

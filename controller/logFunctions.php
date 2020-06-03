@@ -5,18 +5,16 @@ include "model/usermodel.php";
 
 $errors   = array();
 
-// call the register() function if register_btn is clicked
-if (isset($_POST['register'])) {
-	ft_register();
-}
-
-// call the login() function if register_btn is clicked
+// Login respond 
 if (isset($_POST['login'])) {
-	ft_login();
+	$username    =  e($_POST['username']);
+	$password  =  e($_POST['password']);
+	$login_user = new User;
+	$login_user->user_login($username, $password);
 }
 
-function ft_register()
-{
+// Sign-up respond 
+if (isset($_POST['register'])) {
 	$username    =  e($_POST['username']);
 	$email       =  e($_POST['email']);
 	$password_1  =  e($_POST['password']);
@@ -24,14 +22,6 @@ function ft_register()
 	$grade		 = 	e($_POST['grade']);
 	$logup_user = new User;
 	$logup_user->user_register($username, $email, $password_1, $password_2, $grade);
-}
-
-function ft_login()
-{
-	$username    =  e($_POST['username']);
-	$password  =  e($_POST['password']);
-	$login_user = new User;
-	$login_user->user_login($username, $password);
 }
 
 
