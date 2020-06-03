@@ -122,6 +122,7 @@ if (isset($_POST['submit'])) {
             xmlhttp.open("GET", "controller/userfunctions.php?r=" + str, true);
             xmlhttp.send();
         }
+        showReservation(<?php echo $_SESSION['user']['iduser'] ?>);
 
         function showClient(str) {
 
