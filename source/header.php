@@ -24,12 +24,12 @@
     <!-- My Side Barre -->
     <div class="sideBarre">
         <div class="sideBarre__logo">
-            <img src="images/logo.png" alt="">
+            <img src="images/logo.png" alt="" href="index.php">
         </div>
         <div class="sideBarre__menu">
             <ul>
-                <li><a href="adminprofil.php">Vols disponible</a></li>
-                <li><a href="index.php">view website</a></li>
+                <li><a href="admininstration.php">Vols disponible</a></li>
+                <li><a href="adminprofil.php">Profil</a></li>
                 <li><a href="controller/logout.php">logout</a></li>
 
             </ul>

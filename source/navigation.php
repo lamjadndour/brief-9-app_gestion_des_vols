@@ -12,7 +12,7 @@
 
         if ($_SESSION['user']["grade"] == 1) {
       ?>
-          <a class="nav-item nav-link my-auto  text-center" href="adminprofil.php">Administration</a>
+          <a class="nav-item nav-link my-auto  text-center" href="admininstration.php">Administration</a>
         <?php
         } else {
         ?>

@@ -24,7 +24,7 @@ class User
                 header("Location: userprofil.php?id=$id");
             }
         } else {
-            array_push($errors, "Data insert is false");
+            array_push($errors, "Data inserted is false");
         }
     }
     // REGISTER USER

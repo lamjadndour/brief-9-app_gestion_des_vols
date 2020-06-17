@@ -60,14 +60,13 @@ if (isset($_POST['submit'])) {
                         <li>
                             <a onclick="showReservation(<?php echo $id ?>)"><span class="fa fa-plane mr-3"></span> all Your reservation</a>
                         </li>
-
                         <li>
-                            <a onclick="showUser(<?php echo $id ?>)"><span class="fa fa-user mr-3"></span> Update your Profile</a>
+                            <a onclick="showUser(<?php echo $id ?>)"><span class="fa  fa-user mr-3"></span> Your Profile</a>
+                        </li>
+                        <li>
+                            <a onclick="editUser(<?php echo $id ?>)"><span class="fa fa-paper-plane  mr-3"></span> Update your Profile</a>
                         </li>
 
-                        <li>
-                            <a href="#"><span class="fa fa-paper-plane mr-3"></span> Contacts</a>
-                        </li>
                     </ul>
 
                     <div class="mb-5">
@@ -146,6 +145,18 @@ if (isset($_POST['submit'])) {
                 }
             };
             xmlhttp.open("GET", "controller/userfunctions.php?u=" + str, true);
+            xmlhttp.send();
+        }
+
+        function editUser(str) {
+            document.getElementById("content").innerHTML = "";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("content").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "controller/userfunctions.php?edit-user=" + str, true);
             xmlhttp.send();
         }
     </script>

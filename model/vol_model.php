@@ -3,29 +3,6 @@
 
 class Vol
 {
-  public $idVol;
-  public $depart;
-  public $destination;
-  public $date_depart;
-  public $time;
-  public $prix;
-  public $place_disponible;
-  public $status;
-
-
-
-  // //--------show Function-------------
-  // public function show($Table_Name)
-  // {
-  //   global $db;
-  //   $array = array();
-  //   $query = "SELECT * FROM " . $Table_Name . "";
-  //   $result = mysqli_query($db, $query);
-  //   while ($row = mysqli_fetch_assoc($result)) {
-  //     $array[] = $row;
-  //   }
-  //   return $array;
-  // }
 
   // --------Insert Function----------
   function vol_insert($depart, $destination, $date_depart, $time, $prix, $place_disponible, $status)
@@ -56,11 +33,4 @@ class Vol
               status = '$status' 
               where idVol = '$id1'");
   }
-
-  // --------Delete Function----------
-  //    function user_delete($id) {
-  //    mysqli_query($this->conn,"DELETE from users where iduser = '$id'");
-
-
-
 }

@@ -48,6 +48,7 @@ if (@$idUser = intval($_GET['r'])) {
         <th>Destination</th>
         <th>Date reservation</th>
         <th>Status</th>
+        <th>Prix</th>
         <th>Info Client</th>
         </tr>';
         while ($reservation_data =  mysqli_fetch_array($reservation)) {
@@ -64,6 +65,7 @@ if (@$idUser = intval($_GET['r'])) {
                     echo "<td>" . $vol_data['destination'] . "</td>";
                     echo "<td>" . $date . "</td>";
                     echo "<td>" . $vol_data['status'] . "</td>";
+                    echo "<td>" . $vol_data['prix'] . " DH </td>";
                     echo "<td> <button class='btn btn-info' onclick='showClient(" . $idclient . ")'>Info</button> </td>";
                     echo "</tr>";
                 }
@@ -77,8 +79,56 @@ if (@$idUser = intval($_GET['r'])) {
 
 
 // ::::::: GET USER_DATA OF USER FROM DATABASE ::::::  \\
-
 if (@$idUser = $_GET['u']) {
+    $user_m = new User;
+    $user = $user_m->user_show($idUser);
+    $user_rows = mysqli_num_rows($user);
+
+
+    if ($user_rows > 0) {
+        while ($user_data =  mysqli_fetch_array($user)) {
+            $userName = $user_data['username'];
+            $userEmail = $user_data['Email'];
+            $userid = $user_data['iduser'];
+            if ($user_data['grade'] == 1) {
+                $userStatus = "Client";
+            } else $userStatus = "Admin";
+            echo '<div class="card-body card-body-plus">
+                <div class="e-profile">
+                    <div class="tab-content pt-3">
+                        <div class="tab-pane active">
+                            <form class="form" >
+                                <div class="row">
+                                    <div class="col">
+                                    <div class="row">
+                                            <div class="col">
+                                                <div class="form-group"> <label>Status</label>  <input class="form-control" type="text" value="' . $userStatus . '" disabled></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group"> <label>Username</label>  <input class="form-control" type="text" name="username" value="' . $userName . '" disabled></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group"> <label>Email</label> <input class="form-control" type="text" name="email" value="' . $userEmail . '"disabled></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
+    }
+}
+// ::::::: EDIT USER_DATA OF USER FROM DATABASE ::::::  \\
+if (@$idUser = $_GET['edit-user']) {
     $user_m = new User;
     $user = $user_m->user_show($idUser);
     $user_rows = mysqli_num_rows($user);

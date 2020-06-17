@@ -9,8 +9,7 @@ $errors   = array();
 if (isset($_POST['login'])) {
 	$username    =  e($_POST['username']);
 	$password  =  e($_POST['password']);
-	$login_user = new User;
-	$login_user->user_login($username, $password);
+	User::user_login($username, $password);
 }
 
 // Sign-up respond 
